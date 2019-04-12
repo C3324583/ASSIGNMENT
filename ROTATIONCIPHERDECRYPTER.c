@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
+/*
 int main(){
     //initialising variables
 	char text[126], element;
@@ -13,13 +13,14 @@ int main(){
 	    for (i=0; text[i]!='\0'; i++){
 	        text[i] = text[i] + rotationkey;
 	    }
-	    if (/* the words are found in a library*/){
+	    if (the words are found in a library){
 	        break;
 	    }
+	    
 	}
 	
 	printf("Decrypted message: %s", text); //prints the correctly rotated message to the screen
 	
 	return 0;
 }
-
+*/
