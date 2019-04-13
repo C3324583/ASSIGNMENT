@@ -2,20 +2,24 @@
 #include <stdlib.h>
 
 void RotationEncrypter(void);
-void RotationDecrypter(void);
+void RotationDecrypterWithKey(void);
 int main(){
     int n;
     printf("Select one of the following options and press enter:\n");
-    printf("Type 1 to encrypt a message with a rotation cipher\n");
-    printf("Type 2 to decrypt a message with a rotation cipher\n");
-    printf("Type 3 to encrypt a message with a substitution cipher\n");
-    printf("Type 4 to decrypt a message with a substitution cipher\n");
+    printf("Type 1 to encrypt a message with a rotation cipher.\n");
+    printf("Type 2 to decrypt a message encrypted with a rotation cipher, if the rotation key is known.\n");
+    printf("Type 2 to decrypt a message encrypted with a rotation cipher, if the rotation key is NOT known.\n");
+    printf("Type 3 to encrypt a message with a substitution cipher.\n");
+    printf("Type 4 to decrypt a message encrypted with a substitution cipher, if the alphabet substitution is known.\n");
+    printf("Type 4 to decrypt a message encrypted with a substitution cipher, if the alphabet substitution is NOT known.\n");
     scanf("%d", &n);
     switch(n){
         case 1: RotationEncrypter(); break;
-        case 2: RotationDecrypter(); break;
+        case 2: RotationDecrypterWithKey(); break;
         case 3: break;
         case 4: break;
+        case 5: break;
+        case 6: break;
         default: printf("Please run again and select one of the listed options");
     }
     return 0;
@@ -28,7 +32,7 @@ ________________________________________________________________________________
 
 void RotationEncrypter(void){
     //initialising variables
-	char text[126], element;
+	char text[1000], element;
 	int n, i, rotationkey;
 	
 	printf("Enter message: ");//prompt the user to imput a message
@@ -84,7 +88,7 @@ void RotationEncrypter(void){
 ____________________________________________________________________________________________________________________*/
 
 
-void RotationDecrypter(void){
+void RotationDecrypterWithKey(void){
     
 }
 
