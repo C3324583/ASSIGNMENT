@@ -1,3 +1,7 @@
+/* This program prints 6 messages to the screen, prompting the user to select one of the 6 tasks for the program to 
+complete by typing an integer between 1 and 6. This integer is stored in the variable n, which decides which of the 
+six distinct functions is called. Once the function is called, the program will interact with the user and allow
+them to either encrypt or decrypt any message with either rotation or substitution cipher. */
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -38,16 +42,16 @@ ________________________________________________________________________________
 
 void RotationEncrypter(void){
     
-    //initialising variables
+    //initialisation of variables and arrays
 	char text[1000], element;
 	int n, i, rotationkey;
 	
-	printf("Enter message: ");//prompt the user to imput a message
-	scanf(" %[^\n]s", text);//store the text imputted by the user in the array "text"
-	printf("Enter rotation key: ");//prompt the user to imput a rotation key
-	scanf("%d", &rotationkey);//store the rotation value in the variable "rotationkey"
+	printf("Enter message: ");//prompts the user to imput a message
+	scanf(" %[^\n]s", text);//stores the text imputted by the user in the array "text"
+	printf("Enter rotation key: ");//prompts the user to imput a rotation key
+	scanf("%d", &rotationkey);//stores the rotation value in the variable "rotationkey"
 	
-	//accounting for rotation keys that are not between 0 and 25 and translating them into their corresponding key within the range
+	//This pair of "if" statements corrects rotation keys that are not between 0 and 25 and translates them into their corresponding key within the range
 	if(rotationkey>25){
 	    n = rotationkey / 26;
 	    rotationkey = rotationkey - (26 * n);
@@ -58,9 +62,9 @@ void RotationEncrypter(void){
 	    rotationkey = 26 - rotationkey;
 	}
 	
-	//this for loop executes the rotation for all letters in the array "text" until the element occupying index i is empty
+	//This for loop executes for all characters in the array "text" until the chracter occupying index i is a "NULL" character
 	for(i = 0; text[i] != '\0'; ++i){
-		element = text[i]; //assigning the value of "text" at index "i" to the variable element
+		element = text[i]; //assigns the value of "text" at index "i" to the variable element
 		
 		//Each lowercase letter of the string is turned into UPPERCASE by subtracting 32 (according to the ASCII standard) and then rotated by the "rotationkey"
 		if(element >= 'a' && element <= 'z'){
@@ -79,7 +83,7 @@ void RotationEncrypter(void){
 			if(element > 'Z' || element < 'A'){
 				element = element - 26;
 			}
-			text[i] = element; //storing the rotated letter back in the array "text"
+			text[i] = element; //stores the rotated letter back in the array "text"
 		}
 	}
 	
@@ -96,16 +100,16 @@ ________________________________________________________________________________
 
 
 void RotationDecrypterWithKey(void){
-        //initialising variables
+    //initialisation of variables and arrays
 	char text[1000], element;
 	int n, i, rotationkey;
 	
-	printf("Enter message to decrypt: ");//prompt the user to imput a message
-	scanf(" %[^\n]s", text);//store the text imputted by the user in the array "text"
-	printf("Enter rotation key: ");//prompt the user to imput a rotation key
-	scanf("%d", &rotationkey);//store the rotation value in the variable "rotationkey"
+	printf("Enter message to decrypt: ");//prompts the user to imput a message
+	scanf(" %[^\n]s", text);//stores the text imputted by the user in the array "text"
+	printf("Enter rotation key: ");//prompts the user to imput a rotation key
+	scanf("%d", &rotationkey);//stores the rotation value in the variable "rotationkey"
 	
-	//accounting for rotation keys that are not between 0 and 25 and translating them into their corresponding key within the range
+	//This pair or "if" statements corrects rotation keys that are not between 0 and 25 and translates them into their corresponding key within the range
 	if(rotationkey>25){
 	    n = rotationkey / 26;
 	    rotationkey = rotationkey - (26 * n);
@@ -116,7 +120,7 @@ void RotationDecrypterWithKey(void){
 	    rotationkey = 26 - rotationkey;
 	}
 	
-	//this for loop executes the rotation for all letters in the array "text" until the element occupying index i is empty
+	//This for loop executes for all characters in the array "text" until the chracter occupying index i is a "NULL" character
 	for(i = 0; text[i] != '\0'; ++i){
 		element = text[i]; //assigning the value of "text" at index "i" to the variable element
 		
@@ -127,7 +131,7 @@ void RotationDecrypterWithKey(void){
 			if(element > 'Z' || element < 'A'){
 				element = element + 26;
 			}
-			text[i] = element; //storing the rotated letter back in the array "text"
+			text[i] = element; //stores the rotated letter back in the array "text"
 		}
 		
 		//Each UPPERCASE letter is rotated backwards by the "rotationkey"
@@ -137,7 +141,7 @@ void RotationDecrypterWithKey(void){
 			if(element > 'Z' || element < 'A'){
 				element = element + 26;
 			}
-			text[i] = element; //storing the rotated letter back in the array "text"
+			text[i] = element; //stores the rotated letter back in the array "text"
 		}
 	}
 	
@@ -156,23 +160,71 @@ void RotationDecrypterNoKey(void){
 }
 
 
+
+
 /*____________________________________________________________________________________________________________________
     FUNCTION FOR SUBSTITUTION CIPHER ENCRYPTION
 ____________________________________________________________________________________________________________________*/
 
 
 void SubstitutionEncrypter(void){
+        //initialisation of variables and arrays
+	char text[1000], substitution[100];
+	const char ALPHABET[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	int n, i;
+	
+	printf("Enter message: ");//prompts the user to imput a message
+	scanf(" %[^\n]s", text);//stores the text imputted by the user in the array "text"
+	printf("Enter an alphabet substitution by typing 26 consecutive letters, where the first will replace A, the second will replace B and so on: ");//prompts the user to imput an alphabet substitution
+	scanf("%s", substitution);//stores the alphabet substitution in the array "substitution"
+    
+    /*This for loop executes for all characters in the array "text" until the chracter occupying index i is a
+    "NULL" character*/
+    for(n=0; text[n]!='\0'; n++){
+  
+	    //turns lowercase letters in the array "text" into UPPERCASE by subtracting 32
+     	if(text[n] >= 'a' && text[n] <= 'z'){
+		    text[n] = text[n] - 32;
+     	}
+     
+        //prints the character at index "n" to the screen if it is not a letter
+        if(text[n] < 'A' || text[n] > 'Z'){
+                printf("%c", text[n]);
+        }
+        
+        /* This loop tests if the character at index "n" is equal to any of the letters in the array "ALPHABET" 
+        (index 0 to index 25), and if true, the character is substituted with the corresponding chracter in the 
+        array "substitution" */
+        for(i=0; i<26; i++){
+            
+            /* This "if" statement turns lowercase letters in the array "substitution" into UPPERCASE by subtracting
+            32 before the substitution is done */
+            if(substitution[i] >= 'a' && substitution[i] <= 'z'){
+		        substitution[i] = substitution[i] - 32;
+	        }
+             
+            /* This "if" statement tests if the charater in "text" at index "n" is equal to any character in the
+            "ALPHABET". If true, the character at index "i" of "substitution" is printed to the screen*/
+            if (text[n] == ALPHABET[i]){
+                printf("%c", substitution[i]);
+            }
+        }
+    }
 }
+
+
+
 
 /*____________________________________________________________________________________________________________________
     FUNCTION FOR SUBSTITUTION CIPHER DECRYPTION WITH GIVEN ALPHABET SUBSTITUTION
 ____________________________________________________________________________________________________________________*/
 
 
-
 void SubstitutionDecrypterWithAlphabet(void){
     
 }
+
+
 
 
 /*____________________________________________________________________________________________________________________
