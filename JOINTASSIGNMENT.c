@@ -70,7 +70,7 @@ void RotationEncrypter(void){
 		//Each lowercase letter of the string is turned into UPPERCASE by subtracting 32 (according to the ASCII standard) and then rotated by the "rotationkey"
 		if(element >= 'a' && element <= 'z'){
 			element = element + rotationkey - 32;
-			//If the rotation causes the element to have a value outside 'a'....'z' (according to the ASCII standard), 26 is subtracted to give the rotated letter
+			//If the rotation causes the element to have a value outside 'A'....'Z' (according to the ASCII standard), 26 is subtracted to give the rotated letter
 			if(element > 'Z' || element < 'A'){
 				element = element - 26;
 			}
@@ -80,7 +80,7 @@ void RotationEncrypter(void){
 		//Each UPPERCASE letter is rotated by the "rotationkey"
 		else if(element >= 'A' && element <= 'Z'){
 			element = element + rotationkey;
-			//If the rotation causes the element to have a value outside 'a'....'z' (according to the ASCII standard), 26 is subtracted to give the rotated letter
+			//If the rotation causes the element to have a value outside 'A'....'Z' (according to the ASCII standard), 26 is subtracted to give the rotated letter
 			if(element > 'Z' || element < 'A'){
 				element = element - 26;
 			}
@@ -128,7 +128,7 @@ void RotationDecrypterWithKey(void){
 		//Each lowercase letter of the string is turned into UPPERCASE by subtracting 32 (according to the ASCII standard) and then rotated backwards by the "rotationkey"
 		if(element >= 'a' && element <= 'z'){
 			element = element - rotationkey - 32;
-			//If the rotation causes the element to have a value outside 'a'....'z' (according to the ASCII standard), 26 is added to give the rotated letter
+			//If the rotation causes the element to have a value outside 'A'....'Z' (according to the ASCII standard), 26 is added to give the rotated letter
 			if(element > 'Z' || element < 'A'){
 				element = element + 26;
 			}
@@ -138,7 +138,7 @@ void RotationDecrypterWithKey(void){
 		//Each UPPERCASE letter is rotated backwards by the "rotationkey"
 		else if(element >= 'A' && element <= 'Z'){
 			element = element - rotationkey;
-			//If the rotation causes the element to have a value outside 'a'....'z' (according to the ASCII standard), 26 is added to give the rotated letter
+			//If the rotation causes the element to have a value outside 'A'....'Z' (according to the ASCII standard), 26 is added to give the rotated letter
 			if(element > 'Z' || element < 'A'){
 				element = element + 26;
 			}
