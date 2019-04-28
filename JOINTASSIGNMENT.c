@@ -6,7 +6,7 @@ them to either encrypt or decrypt any message with a rotation or substitution ci
 #include <stdio.h>
 #include <stdlib.h>
 
-//function prototypes for the 6 tasks
+//function prototypes for the 6 tasks which all take no arguments and return no values
 void RotationEncrypter(void);
 void RotationDecrypterWithKey(void);
 void RotationDecrypterNoKey(void);
@@ -15,7 +15,10 @@ void SubstitutionDecrypterWithAlphabet(void);
 void SubstitutionDecrypterNoAlphabet(void);
 
 int main(){
+    //initialising variable "n"
     int n;
+    
+    //This series of "printf" functions prompts the user to select a task to complete by typing an integer between 1 and 6
     printf("\nSelect one of the following options and then press <enter>:\n");
     printf("Type 1 to encrypt a message with a rotation cipher.\n");
     printf("Type 2 to decrypt a message encrypted with a rotation cipher, if the rotation key is known.\n");
@@ -24,16 +27,19 @@ int main(){
     printf("Type 5 to decrypt a message encrypted with a substitution cipher, if the alphabet substitution is known.\n");
     printf("Type 6 to decrypt a message encrypted with a substitution cipher, if the alphabet substitution is NOT known.\n");
     scanf("%d", &n);//stores the integer inputted by the user in the variable n
-    switch(n){  //this menu system runs one of 6 functions, depending on the value of n and then exits
+    
+    //this switch case acts as a menu system and runs one of 6 functions, depending on the value of n, and then exits
+    switch(n){  
         case 1: RotationEncrypter(); break;
         case 2: RotationDecrypterWithKey(); break;
         case 3: RotationDecrypterNoKey(); break;
         case 4: SubstitutionEncrypter(); break;
         case 5: SubstitutionDecrypterWithAlphabet(); break;
         case 6: SubstitutionDecrypterNoAlphabet(); break;
-        default: printf("Please run again and select one of the listed options"); //if the user inputs anything that is not listed, the text is printed to the screen
+        default: printf("Please run again and select one of the listed options"); //if "n" is not between 1 and 6 the text is printed to the screen
     }
-    printf("\n\n");
+    
+    printf("\n\n"); //prints two new lines before the program exits for ease of reading
     return 0;
 }
 
@@ -42,9 +48,12 @@ int main(){
 
 
 /*____________________________________________________________________________________________________________________
-    FUNCTION FOR ROTATION CIPHER ENCRYPTION
+    FUNCTION DEFINITION FOR ROTATION CIPHER ENCRYPTER
 ____________________________________________________________________________________________________________________*/
-//This function 
+
+/*This function gets a message and key from the user and rotates every letter in the message
+ by the key. The rotated message is printed to stdout in UPPERCASE letters*/
+
 void RotationEncrypter(void){
     
     //initialisation of variables and arrays
@@ -103,6 +112,8 @@ void RotationEncrypter(void){
     FUNCTION FOR ROTATION CIPHER DECRYPTION WITH GIVEN ROTATION KEY
 ____________________________________________________________________________________________________________________*/
 
+/*This function gets an encrypted message and the key used to encrypt it from the user and rotates 
+every letter in the message by "-key". The rotated message is printed to stdout in UPPERCASE letters*/
 
 void RotationDecrypterWithKey(void){
     //initialisation of variables and arrays
@@ -162,15 +173,24 @@ void RotationDecrypterWithKey(void){
     FUNCTION FOR ROTATION CIPHER DECRYPTION WITHOUT A GIVEN ROTATION KEY
 ____________________________________________________________________________________________________________________*/
 
+/*This function gets a message from the user that has been encrypted with a rotation cipher.
+The function searches for the 5 most common letters in the message and stores them as variables.
+The difference in the ascii values between the most common letter and 'E'(the most common letter 
+in the English language) is stored as the "rotationkey". Finally, all letters in the message are 
+rotated by "-rotationkey" to return them to their correct values. The program then prints the 
+message to the screen and asks the user if it looks correct. If the user sais yes, the program 
+exits. If the user sais no, the loop is repeated using second most common letter, and so on until
+the fifth most common letter. If this method fails, all possible rotation keys are printed to stout*/
 
+//function prototypes for sub-functions which are called inside the major function
 void rotation(int x, char text[]);
 void rotationdefault(char text[]);
 
-
+//this is the major function
 void RotationDecrypterNoKey(void){
  
     //initialisation of variables and arrays
-	char text[100000];
+	char text[10000];
 	int number_of_letter[127] = {0};
 	int n, i, x, ascii, first=0, second=0, third=0, fourth=0, fifth=0;
 	
@@ -187,6 +207,7 @@ void RotationDecrypterNoKey(void){
      	}
     }
     
+    //this loop counts the number of times each letter appears in "text" and stores it in the array "number_of_letter"
 	for(ascii='A'; ascii<='Z'; ascii++){
 	    for(i=0; text[i] != '\0'; i++){
 	        if(ascii==text[i]){
@@ -195,48 +216,47 @@ void RotationDecrypterNoKey(void){
         } 
 	}
 	
+    //this series of for loops determines the five most common letters in the array "text" and stores them in seperate variables
 	for (x=0; x<126; ++x){
 	    if(number_of_letter[x] > number_of_letter[first]){
 	        first = x;
 	    }
 	}
-	
 	for (x=0; x<126; ++x){
 	    if(x != first && number_of_letter[x] <= number_of_letter[first] && number_of_letter[x] > number_of_letter[second]){
 	        second = x;
 	    }
 	}
-	
     for (x=0; x<126; ++x){
 	    if(x != first && x != second && number_of_letter[x] <= number_of_letter[second] && number_of_letter[x] > number_of_letter[third]){
 	        third = x;
 	    }
 	}	
-	
 	for (x=0; x<126; ++x){
 	    if(x != first && x != second && x != third && number_of_letter[x] <= number_of_letter[third] && number_of_letter[x] > number_of_letter[fourth]){
 	        fourth = x;
 	    }
 	}	
-	
 	for (x=0; x<126; ++x){
 	    if(x != first && x != second && x != third && x != fourth && number_of_letter[x] <= number_of_letter[fourth] && number_of_letter[x] > number_of_letter[fifth]){
 	        fifth = x;
 	    }
 	}
-
-
-    rotation(first, text);
-    rotation(second, text);
-    rotation(third, text);
-    rotation(fourth, text);
-    rotation(fifth, text);
-    printf("\nMy code is crap but one of these will be correct:\n");rotationdefault(text);
+   
+    rotation(first, text);//the function "rotation" is called, taking the variable "first" as an argument 
+    rotation(second, text);//the function "rotation" is called, taking the variable "second" as an argument 
+    rotation(third, text);//the function "rotation" is called, taking the variable "third" as an argument 
+    rotation(fourth, text);//the function "rotation" is called, taking the variable "fourth" as an argument 
+    rotation(fifth, text);//the function "rotation" is called, taking the variable "fifth" as an argument 
+    
+    printf("\nMy code is crap but one of these will be correct:\n");//text is printed if the correct rotation was not found
+    rotationdefault(text);//the function "rotationdefault" is called if the correct rotation was not found
 }
 
-
+/*This function rotates every letter of the array "text" according to the difference in value between
+the argument "x" and the ascii value of 'E'. The rotated text is then printed to the screen.*/
 void rotation(int x, char text[]){
-    char txt[100000];
+    char txt[10000];
     for(int y=0;text[y] != '\0'; y++){
         txt[y]=text[y];
     }
@@ -264,9 +284,10 @@ void rotation(int x, char text[]){
 
 
 
-//this function prints all possible rotation keys to the screen if the first function fails to find the correct rotation key
+/*this function prints all possible rotation keys to the screen if the first function fails to find the 
+correct rotation key*/
 void rotationdefault(char text[]){
-    char txt[100000];
+    char txt[10000];
     for(int y=0;text[y] != '\0'; y++){
         txt[y]=text[y];
     }
@@ -294,7 +315,8 @@ void rotationdefault(char text[]){
     FUNCTION FOR SUBSTITUTION CIPHER ENCRYPTION
 ____________________________________________________________________________________________________________________*/
 
-
+/*This function gets a message and substitution alphabet from the user and substitutes every letter in
+the message before printing it to stdout*/
 void SubstitutionEncrypter(void){
         //initialisation of variables and arrays
 	char text[10000], substitution[100];
@@ -353,7 +375,8 @@ void SubstitutionEncrypter(void){
     FUNCTION FOR SUBSTITUTION CIPHER DECRYPTION WITH GIVEN ALPHABET SUBSTITUTION
 ____________________________________________________________________________________________________________________*/
 
-
+/*This function gets an ecrypted message and the substitution alphabet used to encrypt it from the user.
+It substitutes every letter in the message with its corrected letter before printing it to stdout*/
 void SubstitutionDecrypterWithAlphabet(void){
     //initialisation of variables and arrays
 	char text[10000], substitution[100];
@@ -410,7 +433,8 @@ void SubstitutionDecrypterWithAlphabet(void){
     FUNCTION FOR SUBSTITUTION CIPHER DECRYPTION WITHOUT A GIVEN ALPHABET SUBSTITUTION
 ____________________________________________________________________________________________________________________*/
 
-
+/*This function gets a message from the user and substitutes every letter in the message with another
+letter and then prints it to stdout*/
 void SubstitutionDecrypterNoAlphabet(void){
     //initialisation of variables and arrays
 	char text[10000], substitution[100] = "NWLRBMQHCDAZOKYIUXJFEGPTVS";
