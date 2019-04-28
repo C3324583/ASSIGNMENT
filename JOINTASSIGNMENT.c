@@ -1,7 +1,7 @@
 /* This program prints 6 messages to the screen, prompting the user to select one of the 6 tasks for the program to 
 complete by typing an integer between 1 and 6. This integer is stored in the variable n, which decides which of the 
-six distinct functions is called. Once the function is called, the program will interact with the user and allow
-them to either encrypt or decrypt any message with either rotation or substitution cipher. */
+six major functions is called. Once a function is called, the program will interact with the user and allow
+them to either encrypt or decrypt any message with a rotation or substitution cipher. */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -23,15 +23,15 @@ int main(){
     printf("Type 4 to encrypt a message with a substitution cipher.\n");
     printf("Type 5 to decrypt a message encrypted with a substitution cipher, if the alphabet substitution is known.\n");
     printf("Type 6 to decrypt a message encrypted with a substitution cipher, if the alphabet substitution is NOT known.\n");
-    scanf("%d", &n);
-    switch(n){
+    scanf("%d", &n);//stores the integer inputted by the user in the variable n
+    switch(n){  //this menu system runs one of 6 functions, depending on the value of n and then exits
         case 1: RotationEncrypter(); break;
         case 2: RotationDecrypterWithKey(); break;
         case 3: RotationDecrypterNoKey(); break;
         case 4: SubstitutionEncrypter(); break;
         case 5: SubstitutionDecrypterWithAlphabet(); break;
         case 6: SubstitutionDecrypterNoAlphabet(); break;
-        default: printf("Please run again and select one of the listed options");
+        default: printf("Please run again and select one of the listed options"); //if the user inputs anything that is not listed, the text is printed to the screen
     }
     return 0;
 }
@@ -40,7 +40,7 @@ int main(){
 /*____________________________________________________________________________________________________________________
     FUNCTION FOR ROTATION CIPHER ENCRYPTION
 ____________________________________________________________________________________________________________________*/
-
+//This function 
 void RotationEncrypter(void){
     
     //initialisation of variables and arrays
