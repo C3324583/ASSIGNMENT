@@ -48,7 +48,7 @@ ________________________________________________________________________________
 void RotationEncrypter(void){
     
     //initialisation of variables and arrays
-	char text[1000], element;
+	char text[10000], element;
 	int n, i, rotationkey;
 	
 	printf("\nEnter message: ");//prompts the user to imput a message
@@ -106,12 +106,12 @@ ________________________________________________________________________________
 
 void RotationDecrypterWithKey(void){
     //initialisation of variables and arrays
-	char text[1000], element;
+	char text[10000], element;
 	int n, i, rotationkey;
 	
 	printf("\nEnter message to decrypt: ");//prompts the user to imput a message
 	scanf(" %[^\n]s", text);//stores the text imputted by the user in the array "text"
-	printf("\nEnter rotation key: ");//prompts the user to imput a rotation key
+	printf("\nEnter rotation key (used to encrypt the message): ");//prompts the user to imput a rotation key
 	scanf("%d", &rotationkey);//stores the rotation value in the variable "rotationkey"
 	
 	//This pair or "if" statements corrects rotation keys that are not between 0 and 25 and translates them into their corresponding key within the range
@@ -170,7 +170,7 @@ void rotationdefault(char text[]);
 void RotationDecrypterNoKey(void){
  
     //initialisation of variables and arrays
-	char text[10000];
+	char text[100000];
 	int number_of_letter[127] = {0};
 	int n, i, x, ascii, first=0, second=0, third=0, fourth=0, fifth=0;
 	
@@ -231,12 +231,12 @@ void RotationDecrypterNoKey(void){
     rotation(third, text);
     rotation(fourth, text);
     rotation(fifth, text);
-    printf("\nMy code is shit but one of these should be correct:\n");rotationdefault(text);
+    printf("\nMy code is crap but one of these will be correct:\n");rotationdefault(text);
 }
 
 
 void rotation(int x, char text[]){
-    char txt[10000];
+    char txt[100000];
     for(int y=0;text[y] != '\0'; y++){
         txt[y]=text[y];
     }
@@ -266,7 +266,7 @@ void rotation(int x, char text[]){
 
 //this function prints all possible rotation keys to the screen if the first function fails to find the correct rotation key
 void rotationdefault(char text[]){
-    char txt[10000];
+    char txt[100000];
     for(int y=0;text[y] != '\0'; y++){
         txt[y]=text[y];
     }
@@ -297,7 +297,7 @@ ________________________________________________________________________________
 
 void SubstitutionEncrypter(void){
         //initialisation of variables and arrays
-	char text[1000], substitution[100];
+	char text[10000], substitution[100];
 	const char ALPHABET[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	int n, i;
 	
@@ -306,6 +306,7 @@ void SubstitutionEncrypter(void){
 	printf("\nEnter an alphabet substitution by typing 26 consecutive letters,\n");
 	printf("where the first will replace A, the second will replace B and so on: \n");//prompts the user to imput an alphabet substitution
 	scanf("%s", substitution);//stores the alphabet substitution in the array "substitution"
+    printf("\nEncrypted message: ");
     
     /*This for loop executes for all characters in the array "text" until the chracter occupying index i is a
     "NULL" character*/
@@ -355,7 +356,7 @@ ________________________________________________________________________________
 
 void SubstitutionDecrypterWithAlphabet(void){
     //initialisation of variables and arrays
-	char text[1000], substitution[100];
+	char text[10000], substitution[100];
 	const char ALPHABET[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	int n, i;
 	
@@ -364,6 +365,7 @@ void SubstitutionDecrypterWithAlphabet(void){
 	printf("\nEnter the alphabet substitution that was used to encrypby he message by typing 26 consecutive letters,\n");
 	printf("where the first replaced A, the second replaced B and so on: \n");//prompts the user to imput an alphabet substitution
 	scanf("%s", substitution);//stores the alphabet substitution in the array "substitution"
+    printf("\nDecrypted message: ");
     
     /*This for loop executes for all characters in the array "text" until the chracter occupying index i is a
     "NULL" character*/
@@ -411,7 +413,7 @@ ________________________________________________________________________________
 
 void SubstitutionDecrypterNoAlphabet(void){
     //initialisation of variables and arrays
-	char text[1000], substitution[100] = "NWLRBMQHCDAZOKYIUXJFEGPTVS";
+	char text[10000], substitution[100] = "NWLRBMQHCDAZOKYIUXJFEGPTVS";
 	const char ALPHABET[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	int n, i;
 	
